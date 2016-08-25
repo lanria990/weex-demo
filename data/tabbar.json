@@ -1,0 +1,24 @@
+[{
+  index: 0,
+  title: '首页',
+  icon: 'http://o94apbmjs.bkt.clouddn.com/11.png',
+  src: 'reading.js'
+},
+  {
+    index: 1,
+    title: '阅读',
+    icon: 'http://o94apbmjs.bkt.clouddn.com/23.png',
+    src: 'reading.js'
+  },
+  {
+    index: 2,
+    title: '反馈',
+    icon: 'http://o94apbmjs.bkt.clouddn.com/17.png',
+    src: 'post.js'
+  },
+  {
+    index: 3,
+    title: '设置',
+    icon: 'http://o94apbmjs.bkt.clouddn.com/setting.png',
+    src: 'setting.js'
+  }]

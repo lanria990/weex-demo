@@ -1,0 +1,29 @@
+{
+  "name": "read",
+  "version": "1.0.0",
+  "description": "weex demo 学习",
+  "main": "",
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack --watch",
+    "serve": " serve -p 8081",
+    "start":"npm run serve ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["es6","weex"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "^1.7.1",
+    "eslint-loader": "^1.0.0"
+  },
+  "devDependencies": {
+    "serve": "^1.4.0",
+    "webpack": "^1.13.1",
+    "weex-html5": "0.2.18",
+    "weex-loader": "^0.1.5",
+    "babel-cli": "~6.4.5",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0"
+  }
+}

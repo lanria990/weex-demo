@@ -1,0 +1,95 @@
+<template>
+    <div>
+        <text class="title-big">推荐专题</text>
+        <text>{{recommend[0].img}}</text>
+        <div class="img-view"  >
+            <div class="item-left center" onclick="openWebPage(0)">
+                <image src="{{imgs[0]}}" resize="cover" class="img" />
+            </div>
+            <div class="item-right center" onclick="openWebPage(1)">
+                <image src="{{imgs[1]}}" resize="cover" class="img" ></image>
+            </div>
+        </div>
+    </div>
+</template>
+
+<style>
+    .row{
+        flex-direction: row;
+        height:200;
+        margin-top:20;
+    }
+    .center{
+        justify-content:center;
+        align-items:center;
+    }
+    .item-left{
+        flex: 1;
+        margin-left: 10;
+        margin-right:5;
+        height:200;
+    }
+    .item-right{
+        flex: 1;
+        margin-left: 5;
+        margin-right:10;
+        height:200;
+    }
+
+    .img{
+        height:100;
+        width: 200;
+        border-radius:5;
+    }
+    .title-big{
+        font-size:23;
+        font-weight:200;
+        color:#414141;
+        margin-left:10;
+    }
+
+</style>
+
+<script>
+    let Utils = require('./../util');
+    let CONFIG = require('./../config');
+    module.exports={
+        data:{
+            recommend: [],
+            baseURL: ''
+        },
+        methods:{
+            openWebPage(index){
+                let url = this.recommend[index].url;
+                let title = this.recommend[index].title;
+                let params = {
+                    'url': `${this.baseURL}yywebview.js?weixin_title${title}&weixin_url=${url}` ,
+                    'animated' : 'true',
+                }
+                console.log('------',params.url);
+                Utils.navpush(params)
+            }
+        },
+        created:function () {
+            let url = this.$getConfig().bundleUrl;
+            let nativeURL = CONFIG.RECOMMEND_BASE_NATIVE.format({host:CONFIG.HOST,dir:this.dir});
+            let h5URL = CONFIG.RECOMMEND_BASE_H5.format({dir:this.dir});
+            this.baseURL = Utils.baseURI();
+            this.width = 360;
+        },
+        computed: {
+
+            imgs: {
+                get: function(){
+                    var imgs = [];
+                    var recommend = this.recommend;
+                    console.log('recommendTopic', recommend)
+                    for(var i in recommend){
+                        imgs.push(recommend[i].img);
+                    }
+                    return imgs;
+                }
+            }
+        }
+    }
+</script>

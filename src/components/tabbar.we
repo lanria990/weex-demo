@@ -1,0 +1,73 @@
+<template>
+    <div class="tabbar">
+        <div repeat={{tabItems}} src="{{src}}" style="flex: 1;"  onclick="onclickitem">
+            <div class="container">
+                <image class="top-line" src = "http://gtms03.alicdn.com/tps/i3/TB1mdsiMpXXXXXpXXXXNw4JIXXX-640-4.png"></image>
+                <image class="top-icon" src="{{icon}}"></image>
+                <text class="tab-text" style="color:#000;">{{title}}</text>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<style>
+    .container{
+        flex: 1;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height:100;
+    }
+    .top-line{
+        position: absolute;
+        top:0;
+        left: 0;
+        right: 0;
+        height:2;
+    }
+    .top-icon{
+        margin-top: 5;
+        width: 55;
+        height: 55;
+    }
+    .tab-text{
+        flex-direction: row;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 110;
+    }
+</style>
+
+<script>
+    let Utils = require('./util');
+    let CONFIG = require('./config');
+    module.exports={
+        data:{
+            dir:'example',
+            baseURL:'',
+            tabItems:[]
+        },
+        methods:{
+            onclickitem( e){
+                let obj =  e.target.attr;
+                let url = this.baseURL + obj.src;
+                let params = {
+                    url: url,
+                    animated : 'true',
+                }
+                Utils.navpush(params);
+            }
+        },
+        created(){
+            let url = this.$getConfig().bundleUrl;
+            let nativeURL = CONFIG.TABAR_BASE_NATIVE.format({host:CONFIG.HOST,dir:this.dir});
+            let h5URL = CONFIG.TABAR_BASE_H5.format({dir:this.dir});
+            this.baseURL = Utils.baseURI();
+
+            this.tabItems = require('../../data/tabbar.json');
+        }
+    }
+</script>

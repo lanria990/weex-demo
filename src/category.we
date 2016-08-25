@@ -1,0 +1,112 @@
+<template>
+    <div class="row" repeat="{{labels}}">
+        <div class="item-left"  title="{{label[0]}}" onclick="gotoList">
+            <text class="title">{{label[0]}}</text>
+        </div>
+        <div class="item-right" title="{{label[1]}}" onclick="gotoList">
+            <text class="title">{{label[1]}}</text>
+        </div>
+    </div>
+</template>
+
+<style>
+    .row{
+        flex-direction: row;
+        height:150;
+        margin-top:6;
+    }
+    .item-left{
+        flex:1;
+        border-width:1;
+        border-color: #BEBEBE;
+        border-radius:4;
+        margin-left:10;
+        margin-right:5;
+    }
+    .item-right{
+        flex: 1;
+        margin-left:5;
+        margin-right:10;
+    }
+
+    .center{
+        justify-content: center;
+        align-items: center;
+    }
+
+    .border{
+        border-width:1 ;
+        border-color: #BEBEBE;
+        border-radius: 4;
+    }
+
+    .title{
+        font-weight: 300;
+        font-size: 20;
+        color: #2A2C28;
+    }
+
+</style>
+
+<script>
+    let Utils = require('./../util');
+    let CONFIG = require('./../config');
+    module.exports={
+        data:{
+            labels:[],
+            list:[],
+            dir: 'examples',
+            baseURL:''
+        },
+        methods:{
+            gotoList:function (e) {
+                let param ={
+                    'url':this.baseURL + 'reading/list.js?type=' + type + '&title=' + title,
+                    'animated':true
+                };
+                Utils.navpush(param);
+            },
+            _getData:function (type) {
+                let _url = CONFIG.HOST+CONFIG.CATEGORY_LIST.format(type);
+                console.log(_url)
+                Utils.request(_url).then(data=>{
+                    this.list =  data.data
+                });
+            },
+            _getType(title){
+                let arr = [{label:'互联网',key:'it'},{label:'散文',key:'sanwen'},{label:'笑话',key:'cookies'},{label:'管理',key:'manager'}];
+                return (arr.filter(item=>item.label==title)[0]||{}).key || 'it';
+            }
+        },
+        created:function () {
+            var bundleUrl = this.$getConfig().bundleUrl;
+            this.title = decodeURIComponent(Utils.urlParam(bundleUrl, 'title'));
+            var type = Utils.urlParam(bundleUrl, 'type');
+
+            let nativeURL = CONFIG.CATEGORY_BASE_NATIVE.format({host:CONFIG.HOST,dir:this.dir});
+            let h5URL = CONFIG.CATEGORY_BASE_H5.format({dir:this.dir});
+            this.baseURL = Utils.baseURI(bundleUrl,nativeURL,h5URL);
+
+//            this._getData(type);
+
+            this.$on('naviBar.leftItem.click',function(e){
+                //pop back
+                var params = {
+                    'animated' : 'true',
+                }
+                Utils.navpop(param);
+            });
+        },
+        computed:{
+            labels:{
+                get:function () {
+                    let labels = [];
+                    for(var i in this.list){
+                        labels.push(this.list[i].text);
+                    }
+                    return labels;
+                }
+            }
+        }
+    }
+</script>

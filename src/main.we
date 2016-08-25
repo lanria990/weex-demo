@@ -1,0 +1,82 @@
+<template>
+  <div class="ct" style="height: {{ctHeight}}">
+    <search></search>
+    <scroller class="scroller">
+      <text class="title-big">热门推荐</text>
+      <hot-recommend hot-recommend="{{hotRecommend1}}"></hot-recommend>
+      <hot-recommend hot-recommend="{{hotRecommend2}}"></hot-recommend>
+    </scroller>
+  </div>
+</template>
+
+<style>
+  .title-big{
+    font-size:32;
+    font-weight:200;
+    color:#444444;
+    margin-left:10;
+    margin-bottom:10;
+  }
+  .container {
+    position: absolute;
+    top: 0; left: 0;
+    right: 0;
+    bottom: 0;
+    margin-top: 0;
+    margin-bottom: 88;
+  }
+  .scroller{
+    position: absolute;
+    top: 160;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+</style>
+
+<script>
+  require('./hot-recommend.we');
+  let Utils = require('./../util');
+
+  module.exports = {
+    data: {
+      recommendTopic:[],
+      hotRecommend1:[],
+      hotRecommend2:[],
+      category1: [],
+      category2: [],
+      cookies1: [],
+      cookies2: []
+    }, created: function(){
+      this._getData();
+    },
+    methods:{
+      _getData() {
+        this.recommendTopic.$set(0, {
+          img: "http://o94apbmjs.bkt.clouddn.com/yy.jpg",
+          url: "http://mp.weixin.qq.com/s?__biz=MzI1OTE1MzU4NA==&mid=404852295&idx=1&sn=3223f39159d2d52917ff1a6dc50ee9c7#rd",
+          title: "每一个孩子都是一棵小树"
+        });
+        Utils.request(undefined,{
+          method: 'GET',
+          url: 'http://123.57.39.116:3000/data/read?type=config',
+          type:'json'
+        }).then(data=>{
+          let obj = data.data;
+          this.recommendTopic.$set(0, obj.recommendTopic[0]);
+          this.recommendTopic.$set(1, obj.recommendTopic[1]);
+          this.recommendTopic = obj.recommendTopic;
+          this.hotRecommend1 = obj.hotTopic.slice(0, 4);
+          this.hotRecommend2 = obj.hotTopic.slice(4, 8);
+          this.category1 = obj.category.slice(0, 2);
+          this.category2 = obj.category.slice(2, 4);
+          this.cookies1 = obj.other.slice(0, 4);
+          this.cookies2 = obj.other.slice(4, 8);
+        });
+      }
+    },
+    ready: function () {
+
+    }
+  }
+</script>

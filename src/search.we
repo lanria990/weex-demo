@@ -1,0 +1,28 @@
+<template>
+    <div class="search-box"><input placeholder="搜索" type="text"  class="search"></div>
+</template>
+
+<style>
+    .search-box{
+        height: 80;
+        margin-top: 25;
+    }
+.search{
+    height:75;
+    margin-left: 10;
+    margin-right: 10;
+    padding-left: 25;
+    outline: none;
+    border-radius: 5;
+    border-color:#C1C1C1;
+    placeholder-color:#393939;
+    font-weight: 200;
+    font-size: 30;
+}
+</style>
+
+<script>
+    module.exports = {
+        data: {}, methods: {}
+    }
+</script>

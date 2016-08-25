@@ -1,0 +1,76 @@
+<template>
+    <scroller class="list" append="true">
+        <div class="list-item" repeat="{{list}}" title="{{title}}" onclick="gotoPage">
+            <div class="row">
+                <image class="img" src="{{img}}" resize="cover"></image>
+                <text class="title">{{title}}</text>
+                <text class="time">{{time}}</text>
+            </div>
+        </div>
+    </scroller>
+    <loading class="loading-view" display="{{loading_display}}" onloading="onloading">
+        <loading-indicator class="loading-omdocator"></loading-indicator>
+    </loading>
+</template>
+
+<style>
+    .list{
+        margin-top: 10;
+    }
+    .list-item{
+        height: 150;
+        border-bottom-width: 1;
+        border-bottom-color:#E0E0E0 ;
+    }
+    .row{
+        flex-direction: row;
+    }
+    .img{
+        width: 150;
+        height: 150;
+    }
+.loading-view{
+}
+.loading-omdocator{
+    height:60;
+    width:60;
+    }
+
+.title{
+        font-size: 30;
+        text-overflow: ellipsis;
+        lines:2;
+        margin-right: 10;
+        margin-left: 10;
+    }
+.time{
+        font-size: 27;
+        lines:1;
+        text-overflow: ellipsis;
+        margin-top: 10;
+        color: #4C4C4C;
+    }
+</style>
+
+<script>
+    module.exports={
+        data:{
+            baseURL:'',
+            list:[
+                {img:'',title:'',time:''}
+            ]
+        },
+        methods:{
+            gotoPage:function (e) {
+                let navigator = require('@weex-module/navigator');
+                let param = {
+                    'url':this.baseURL + ''+title+'',
+                    'animated' : 'true',
+                }
+                navigator.push(param,function () {
+                    //...
+                })
+            }
+        }
+    }
+</script>
