@@ -17,3 +17,8 @@ npm install
 *note: the entry file can be configured in `webpack.config.js`, learn more from [weex-loader](https://www.npmjs.com/package/weex-loader)*
 
 Finally the generated code will be found in `dist` folder.
+
+
+
+
+**** 目前遇到 ` Uncaught ReferenceError: weex_define is not defined `未解决

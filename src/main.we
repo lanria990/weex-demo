@@ -2,9 +2,7 @@
   <div class="ct" style="height: {{ctHeight}}">
     <search></search>
     <scroller class="scroller">
-      <text class="title-big">热门推荐</text>
-      <hot-recommend hot-recommend="{{hotRecommend1}}"></hot-recommend>
-      <hot-recommend hot-recommend="{{hotRecommend2}}"></hot-recommend>
+      <recommend recommend="{{recommendTopic}}"></recommend>
     </scroller>
   </div>
 </template>
@@ -35,7 +33,7 @@
 </style>
 
 <script>
-  require('./hot-recommend.we');
+  require('./recommend.we');
   let Utils = require('./../util');
 
   module.exports = {
@@ -52,11 +50,6 @@
     },
     methods:{
       _getData() {
-        this.recommendTopic.$set(0, {
-          img: "http://o94apbmjs.bkt.clouddn.com/yy.jpg",
-          url: "http://mp.weixin.qq.com/s?__biz=MzI1OTE1MzU4NA==&mid=404852295&idx=1&sn=3223f39159d2d52917ff1a6dc50ee9c7#rd",
-          title: "每一个孩子都是一棵小树"
-        });
         Utils.request(undefined,{
           method: 'GET',
           url: 'http://123.57.39.116:3000/data/read?type=config',
@@ -73,6 +66,44 @@
           this.cookies1 = obj.other.slice(0, 4);
           this.cookies2 = obj.other.slice(4, 8);
         });
+//        var that = this;
+//        var stream = require('@weex-module/stream');
+//        var url = 'http://123.57.39.116:3000/data/read?type=config';
+//        stream.fetch({
+//          method: 'GET',
+//          url: url,
+//          type:'json'
+//        }, function(response) {
+//          if(response.status == 200){
+//            //这里需要兼容web和Native，Native需要将传递的数据JSON化
+//            var data = response.data;
+//            try{
+//              data = JSON.parse(response.data);
+//            }catch(e){}
+//
+//            if(data.status){
+//
+//              var obj = data.data;
+//              that.recommendTopic.$set(0, obj.recommendTopic[0]);
+//              that.recommendTopic.$set(1, obj.recommendTopic[1]);
+//              that.recommendTopic = obj.recommendTopic;
+//              that.hotRecommend1 = obj.hotTopic.slice(0, 4);
+//              that.hotRecommend2 = obj.hotTopic.slice(4, 8);
+//              that.category1 = obj.category.slice(0, 2);
+//              that.category2 = obj.category.slice(2, 4);
+//              that.cookies1 = obj.other.slice(0, 4);
+//              that.cookies2 = obj.other.slice(4, 8);
+//            }else{
+//              //TODO:
+//            }
+//          }else{
+//            //TODO:错误处理
+//            //console.log('--response:-- ', response);
+//          }
+//        },function(err){
+//          //console.log('---err---', err);
+//          //TODO:错误处理
+//        });
       }
     },
     ready: function () {
