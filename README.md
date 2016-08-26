@@ -19,6 +19,9 @@ npm install
 Finally the generated code will be found in `dist` folder.
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 8b63456f6acf7920fd755ee133973c30e29ba6df
 **** 目前遇到 ` Uncaught ReferenceError: weex_define is not defined `未解决

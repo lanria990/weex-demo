@@ -35,3 +35,8 @@ weex：v0.4
 5、`ReferenceError: weex_define is not defined,ReportException :undefined:0: TypeError: undefined is not a function`
 
 - assets文件中含有main.js,避开关键字眼
+
+
+6、遇到 ` Uncaught ReferenceError: weex_define is not defined `未解决
+
+- 粗心导致， main.js直接引用
